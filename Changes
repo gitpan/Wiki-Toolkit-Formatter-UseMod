@@ -1,3 +1,7 @@
+0.20    6 June 2006
+        Update copyright notice.
+        Fix bug with badly-formed internal links.
+
 0.19    27 April 2006
         Rename to Wiki::Toolkit::Formatter::UseMod
 

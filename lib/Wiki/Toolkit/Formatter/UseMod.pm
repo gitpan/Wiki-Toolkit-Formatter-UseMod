@@ -3,7 +3,7 @@ package Wiki::Toolkit::Formatter::UseMod;
 use strict;
 
 use vars qw( $VERSION @_links_found );
-$VERSION = '0.19';
+$VERSION = '0.20';
 
 use URI::Escape;
 use Text::WikiFormat as => 'wikiformat';
@@ -394,6 +394,10 @@ sub format_link {
     $link = $self->{_munge_node_name}($link)
         if $self->{_munge_node_name};
 
+    if (!$link) {
+        return "[Undefined link '$title']";
+    }
+
     my $editlink_not_link = 0;
     # See whether the linked-to node exists, if we can.
     if ( $wiki && !$wiki->node_exists( $link ) ) {
@@ -639,11 +643,12 @@ sub make_external_link {
 
 =head1 AUTHOR
 
-Kake Pugh (kake@earth.li).
+Kake Pugh (kake@earth.li) and the Wiki::Toolkit team.
 
 =head1 COPYRIGHT
 
      Copyright (C) 2003-2004 Kake Pugh.  All Rights Reserved.
+     Copyright (C) 2006 the Wiki::Toolkit team. All Rights Reserved.
 
 This module is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
