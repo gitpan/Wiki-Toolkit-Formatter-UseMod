@@ -1,7 +1,13 @@
 use strict;
-use Test::More tests => 2;
+use Test::More;
 use Wiki::Toolkit::Formatter::UseMod;
-use Test::MockObject;
+
+eval { require Test::MockObject; };
+if ( $@ ) {
+    plan skip_all => "Can't find Test::MockObject";
+}
+
+plan tests => 2;
 
 my $wikitext = <<WIKITEXT;
 

@@ -1,6 +1,12 @@
 use strict;
-use Test::MockObject;
-use Test::More tests => 4;
+use Test::More;
+
+eval { require Test::MockObject; };
+if ( $@ ) {
+    plan skip_all => "Can't find Test::MockObject";
+}
+
+plan tests => 4;
 
 my $wikitext = <<WIKITEXT;
 

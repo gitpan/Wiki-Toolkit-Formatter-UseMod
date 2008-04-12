@@ -17,3 +17,4 @@ t/tables.t
 t/twf-bug.t
 t/usemod.t
 META.yml                                 Module meta-data (added by MakeMaker)
+SIGNATURE                                Public-key signature (added by MakeMaker)

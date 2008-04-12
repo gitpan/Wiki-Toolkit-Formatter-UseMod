@@ -2,7 +2,6 @@ use strict;
 local $^W = 1;
 
 use Test::More tests => 25;
-use Test::MockObject;
 
 use_ok( "Wiki::Toolkit::Formatter::UseMod" );
 
@@ -87,50 +86,72 @@ This is [[Another Link|another titled link]].
 
 WIKITEXT
 
-my $wiki = Test::MockObject->new;
-$wiki->mock( "node_exists",
-	    sub { my ($self, $node) = @_;
-		  if ( $node eq "Extended Link" or $node eq "Extended Link Two"
-		       or $node eq "Another Link" ) {
-		      return 1;
-		  } else {
-		      return 0;
-                  }
-		}
-);
+my $have_mockobject;
+eval { require Test::MockObject; };
+if ( !$@ ) {
+    $have_mockobject = 1;
+}
 
-# Test with munged URLs.
-$formatter = Wiki::Toolkit::Formatter::UseMod->new( extended_links => 1,
-                                                munge_urls     => 1 );
-$html = $formatter->format($wikitext, $wiki);
+SKIP: {
+    skip "Can't find Test::MockObject", 11 unless $have_mockobject;
 
-like( $html, qr|<a href="wiki.pl\?Extended_Link">Extended Link</a>|,
-      "extended links work" );
-like( $html, qr|<a href="wiki.pl\?Extended_Link">extended link</a>|,
-      "...and are forced ucfirst" );
-like( $html, qr|<a href="wiki.pl\?Extended_Link">titled extended link</a>|,
-      "...and titles work" );
-like( $html, qr|[^ ]title with leading whitespace|,
-      "...and don't show leading whitespace" );
-like( $html, qr|<a href="wiki.pl\?Extended_Link_Two">|,
-      "...and titled nodes with trailing whitespace are munged correctly before formatting" );
+    my $wiki = Test::MockObject->new;
+    $wiki->mock( "node_exists",
+	          sub {
+                        my ($self, $node) = @_;
+                        if ( $node eq "Extended Link"
+                             or $node eq "Extended Link Two"
+		             or $node eq "Another Link" ) {
+		            return 1;
+		        } else {
+		            return 0;
+                        }
+		      }
+    );
 
-# Test with unmunged URLs.
-$formatter = Wiki::Toolkit::Formatter::UseMod->new( extended_links => 1 );
-$html = $formatter->format($wikitext, $wiki);
+    # Test with munged URLs.
+    $formatter = Wiki::Toolkit::Formatter::UseMod->new( extended_links => 1,
+                                                        munge_urls     => 1 );
+    $html = $formatter->format($wikitext, $wiki);
 
-like( $html, qr|<a href="wiki.pl\?Extended%20Link">Extended Link</a>|,
-      "extended links work with unmunged URLs" );
-like( $html, qr|<a href="wiki.pl\?Extended%20Link">extended link</a>|,
-      "...and are forced ucfirst" );
-like( $html, qr|<a href="wiki.pl\?Extended%20Link">titled extended link</a>|,
-      "...and titles work" );
+    SKIP: {
+        skip "Broken by Text::WikiFormat bug http://rt.cpan.org/Public/Bug/Display.html?id=34402", 5;
 
-@links = $formatter->find_internal_links($wikitext);
-print "# Found links: " . join(", ", @links) . "\n";
-my %linkhash = map { $_ => 1 } @links;
-ok( ! defined $linkhash{"extended link"},
-    "find_internal_links respects ucfirst" );
-ok( ! defined $linkhash{"Extended Link "},
-    "...and drops trailing whitespace" );
-is_deeply( \@links, [ "Extended Link", "Extended Link", "Extended Link", "Extended Link Two", "Another Link" ], "...and gets the right order" );
+    like( $html, qr|<a href="wiki.pl\?Extended_Link">Extended Link</a>|,
+          "extended links work" );
+    like( $html, qr|<a href="wiki.pl\?Extended_Link">extended link</a>|,
+          "...and are forced ucfirst" );
+    like( $html, qr|<a href="wiki.pl\?Extended_Link">titled extended link</a>|,
+          "...and titles work" );
+    like( $html, qr|[^ ]title with leading whitespace|,
+          "...and don't show leading whitespace" );
+    like( $html, qr|<a href="wiki.pl\?Extended_Link_Two">|,
+          "...and titled nodes with trailing whitespace are munged correctly "
+          . "before formatting" );
+    
+    } # end SKIP
+
+    # Test with unmunged URLs.
+    $formatter = Wiki::Toolkit::Formatter::UseMod->new( extended_links => 1 );
+    $html = $formatter->format($wikitext, $wiki);
+
+    like( $html, qr|<a href="wiki.pl\?Extended%20Link">Extended Link</a>|,
+          "extended links work with unmunged URLs" );
+    like( $html, qr|<a href="wiki.pl\?Extended%20Link">extended link</a>|,
+          "...and are forced ucfirst" );
+    like( $html,
+          qr|<a href="wiki.pl\?Extended%20Link">titled extended link</a>|,
+          "...and titles work" );
+
+    @links = $formatter->find_internal_links($wikitext);
+    print "# Found links: " . join(", ", @links) . "\n";
+    my %linkhash = map { $_ => 1 } @links;
+    ok( ! defined $linkhash{"extended link"},
+        "find_internal_links respects ucfirst" );
+    ok( ! defined $linkhash{"Extended Link "},
+        "...and drops trailing whitespace" );
+    is_deeply( \@links,
+               [ "Extended Link", "Extended Link", "Extended Link",
+                  "Extended Link Two", "Another Link" ],
+               "...and gets the right order" );
+}
