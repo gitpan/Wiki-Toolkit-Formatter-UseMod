@@ -1,3 +1,7 @@
+0.22    18 April 2008
+        Add missing prerequisite of Wiki::Toolkit to aid automated testing.
+        Clean up test sqlite databases correctly
+
 0.21    12 April 2008
         Made Test::MockObject optional.
         Skip tests broken by Text::WikiFormat bug

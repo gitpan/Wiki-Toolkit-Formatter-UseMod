@@ -3,7 +3,7 @@ package Wiki::Toolkit::Formatter::UseMod;
 use strict;
 
 use vars qw( $VERSION @_links_found );
-$VERSION = '0.21';
+$VERSION = '0.22';
 
 use URI::Escape;
 use Text::WikiFormat as => 'wikiformat';
