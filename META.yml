@@ -1,16 +1,18 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         Wiki-Toolkit-Formatter-UseMod
-version:      0.22
-version_from: lib/Wiki/Toolkit/Formatter/UseMod.pm
-installdirs:  site
-requires:
+--- #YAML:1.0
+name:                Wiki-Toolkit-Formatter-UseMod
+version:             0.23
+abstract:            ~
+license:             ~
+author:              ~
+generated_by:        ExtUtils::MakeMaker version 6.42
+distribution_type:   module
+requires:     
     HTML::PullParser:              0
     Test::More:                    0
     Text::WikiFormat:              0.71
     URI::Escape:                   0
     URI::Find::Delimited:          0.02
     Wiki::Toolkit:                 0
-
-distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.30_01
+meta-spec:
+    url:     http://module-build.sourceforge.net/META-spec-v1.3.html
+    version: 1.3

@@ -1,3 +1,6 @@
+0.23    1 February 2009
+        Fix POD errors and add POD test (#46)
+
 0.22    18 April 2008
         Add missing prerequisite of Wiki::Toolkit to aid automated testing.
         Clean up test sqlite databases correctly

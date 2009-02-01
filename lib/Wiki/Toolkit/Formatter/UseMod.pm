@@ -3,7 +3,7 @@ package Wiki::Toolkit::Formatter::UseMod;
 use strict;
 
 use vars qw( $VERSION @_links_found );
-$VERSION = '0.22';
+$VERSION = '0.23';
 
 use URI::Escape;
 use Text::WikiFormat as => 'wikiformat';
@@ -554,6 +554,8 @@ sub _munge_spaces {
     return $node
 }
 
+=back
+
 =head1 SUBCLASSING
 
 The following methods can be overridden to provide custom behaviour.
@@ -648,7 +650,7 @@ Kake Pugh (kake@earth.li) and the Wiki::Toolkit team.
 =head1 COPYRIGHT
 
      Copyright (C) 2003-2004 Kake Pugh.  All Rights Reserved.
-     Copyright (C) 2006-2008 the Wiki::Toolkit team. All Rights Reserved.
+     Copyright (C) 2006-2009 the Wiki::Toolkit team. All Rights Reserved.
 
 This module is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
