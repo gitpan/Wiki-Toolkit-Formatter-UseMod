@@ -3,7 +3,7 @@ package Wiki::Toolkit::Formatter::UseMod;
 use strict;
 
 use vars qw( $VERSION @_links_found );
-$VERSION = '0.23';
+$VERSION = '0.24';
 
 use URI::Escape;
 use Text::WikiFormat as => 'wikiformat';
@@ -50,10 +50,12 @@ A formatter backend for L<Wiki::Toolkit> that supports UseMod-style formatting.
                  edit_prefix         => 'wiki.pl?action=edit;id=',
                  edit_suffix         => '',
                  munge_urls          => 0,
+                 external_link_class => 'external',
   );
 
 Parameters will default to the values shown above (apart from
-C<allowed_tags>, which defaults to allowing no tags).
+C<allowed_tags>, which defaults to allowing no tags, and
+C<external_link_class>, which defaults to false).
 
 =over 4
 
@@ -92,6 +94,17 @@ Example:
 B<Note:> This is I<advanced> usage and you should only do it if you
 I<really> know what you're doing.  Consider in particular whether and
 how your munged nodes are going to be treated by C<retrieve_node>.
+
+=item B<External links>
+
+By default, we emulate the UseModWiki behaviour of formatting external
+links with hardcoded square brackets around them.  If you would
+instead prefer to control this with CSS, supply the
+C<external_link_class> parameter to C<< ->new >> - the value of this
+parameter will be used as the class applied to the link (so it should
+be a valid CSS class name).  Controlling the appearance with CSS is
+our recommended method, but the default is as described for reasons of
+backward compatibility.
 
 =item B<URL munging>
 
@@ -210,6 +223,7 @@ sub _init {
                  edit_suffix         => '',
                  munge_urls          => 0,
                  munge_node_name     => undef,
+                 external_link_class => undef,
                );
 
     my %collated = (%defs, %args);
@@ -635,10 +649,14 @@ link like so:
 sub make_external_link {
     my ($self, %args) = @_;
     my ($open, $close) = ( "[", "]" );
-    if ( $args{title} eq $args{url} ) {
+    my $link_class = $self->{_external_link_class} || "";
+    if ( $args{title} eq $args{url} || $link_class ) {
         ($open, $close) = ( "", "" );
     }
-    return qq|$open<a href="$args{url}">$args{title}</a>$close|;
+    my $ret = qq|$open<a href="$args{url}"|
+              . ( $link_class ? qq| class="$link_class"| : "" )
+              . qq|>$args{title}</a>$close|;
+    return $ret;
 }
 
 =back
@@ -650,7 +668,7 @@ Kake Pugh (kake@earth.li) and the Wiki::Toolkit team.
 =head1 COPYRIGHT
 
      Copyright (C) 2003-2004 Kake Pugh.  All Rights Reserved.
-     Copyright (C) 2006-2009 the Wiki::Toolkit team. All Rights Reserved.
+     Copyright (C) 2006-2012 the Wiki::Toolkit team. All Rights Reserved.
 
 This module is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

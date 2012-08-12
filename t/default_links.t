@@ -19,5 +19,5 @@ like( $html,
       "external links with no title appear as expected" );
 
 like( $html,
-      qr'[<a href="http://external2.example.com/">foo</a>]',
+      qr'\[<a href="http://external2.example.com">foo</a>\]',
       "external links with title appear as expected" );

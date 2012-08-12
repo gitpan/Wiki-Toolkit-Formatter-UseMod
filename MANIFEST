@@ -5,6 +5,7 @@ README
 lib/Wiki/Toolkit/Formatter/UseMod.pm
 t/default_links.t
 t/encode-node-names.t
+t/external_links.t
 t/linebreaks.t
 t/links.t
 t/lists.t

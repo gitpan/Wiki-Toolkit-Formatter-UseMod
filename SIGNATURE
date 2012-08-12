@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.55.
+signed via the Module::Signature module, version 0.63.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -14,14 +14,15 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 40bc79f5585b3f44cd5039e3eccc3dc98afe3ac8 Changes
-SHA1 e93074d4460140e7fc31337f20f4e352e0f2b601 MANIFEST
-SHA1 8f6ec430288c5d9406f502d96635322f5d1ba595 META.yml
+SHA1 73e32f8aacdd6381e4f180d416849eae14a9581d Changes
+SHA1 584d79591f2474d80d6374a292a932ca8f60420d MANIFEST
+SHA1 4e8ebc1677a4d21b015548b2e064273cadb15168 META.yml
 SHA1 9079152ce554d2a80255917bc629314c3610beeb Makefile.PL
 SHA1 23533a20ab8966f9982900147bf544e0c23a6a07 README
-SHA1 fe12b6c68fe1b6434ea9b6745227c3ae22617494 lib/Wiki/Toolkit/Formatter/UseMod.pm
-SHA1 5e63b8a08223093d336527de6c1400a41efe780b t/default_links.t
+SHA1 c1a0f693e075b09742b504f8aaec14344e745fe5 lib/Wiki/Toolkit/Formatter/UseMod.pm
+SHA1 7ca8c08ee676aaef11f394be2bc85629381d256c t/default_links.t
 SHA1 0da3f93b51eab8230d5bd25954d83872acdf8626 t/encode-node-names.t
+SHA1 b6e39bfdea51d12b17a07af7572b46814e13bef4 t/external_links.t
 SHA1 5eaab43671e4219d09e3aa5b23f2bd958e174150 t/linebreaks.t
 SHA1 c3dea30a205dd4ff599629eba912484cbc1bf7d9 t/links.t
 SHA1 a166cf1b523d08475450d831791f681e515b83e9 t/lists.t
@@ -35,9 +36,9 @@ SHA1 adf1ca261fa5fbfa3f7eb38e80725d9b83c90cad t/tables.t
 SHA1 67eb4005ffb64044aa14fcfe273684b2b3c56f9f t/twf-bug.t
 SHA1 c0c73fe9bbdb76463ecb32b4665f3454d5984f68 t/usemod.t
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.9 (GNU/Linux)
+Version: GnuPG v1.4.10 (GNU/Linux)
 
-iD8DBQFJhOmKYzuFKFF44qURAtcoAJ4qiNjTetaHDwmbOYJERBdXgcph5ACghxJ2
-wofqNyOQBiSF+QsjVKZ6mmo=
-=Jwed
+iD8DBQFQJ9sjYzuFKFF44qURAusYAKD/K4K+zHN+p9CFkDmcQVE8A1McfACfUzny
+U15F29bh/v3If0f0e5rL7S0=
+=lqEe
 -----END PGP SIGNATURE-----

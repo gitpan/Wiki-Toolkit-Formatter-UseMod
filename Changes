@@ -1,3 +1,7 @@
+0.24    12 August 2012
+        Add new "external_link_class" option to ->new, for people who prefer
+        to style their external links with CSS.
+
 0.23    1 February 2009
         Fix POD errors and add POD test (#46)
 
